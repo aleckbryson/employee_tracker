@@ -1,8 +1,21 @@
-var inquirer = require ("inquirer");
+var inquirer = require("inquirer");
 var mysql = require("mysql");
 var fs = require("fs");
 
-// inquirer.registerPrompt('selectLine', require('inquirer-select-line'));
+// Connection created for mySQL
+var connection = mysql.createConnection({
+    host: "localhost",
+
+    // Your port; if not 3307
+    port: 3307,
+
+    // Your username
+    user: "root",
+
+    // Your password
+    password: "rootroot",
+    database: "employee_trackerDB"
+});
 
 //Questions added for to ask user whether they want to add, view, or update the department, role, or employee section
 inquirer.prompt([
@@ -11,9 +24,9 @@ inquirer.prompt([
         message: "What would you like to do?",
         name: "choice",
         choices: [
-          "Add Departments, Roles, Employees",
-          "View Departments, Roles, Employees",
-          "Update Employee Roles"
+            "Add Departments, Roles, Employees",
+            "View Departments, Roles, Employees",
+            "Update Employee Roles"
         ]
     },
     {
@@ -91,4 +104,19 @@ inquirer.prompt([
         name: "updateEmployee",
         message: "What Employee would you like to update?"
     }
-]).then(answers => {});
+]).then(answers => {
+    connection.connect(function (err) {
+        if (err) throw err;
+        console.log("connected as id " + connection.threadId);
+        afterConnection();
+    });
+
+    function afterConnection() {
+        connection.query("SELECT * FROM department", function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            connection.end();
+        });
+    }
+
+});
