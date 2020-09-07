@@ -2,10 +2,12 @@ var inquirer = require ("inquirer");
 var mysql = require("mysql");
 var fs = require("fs");
 
+// inquirer.registerPrompt('selectLine', require('inquirer-select-line'));
+
 //Questions added for to ask user whether they want to add, view, or update the department, role, or employee section
 inquirer.prompt([
     {
-        type: "selectLine",
+        type: "list",
         message: "What would you like to do?",
         name: "choice",
         choices: [
@@ -15,7 +17,7 @@ inquirer.prompt([
         ]
     },
     {
-        type: "selectLine",
+        type: "list",
         message: "Would you like to add a Department, Role, or Employee?",
         name: "add",
         choices: [
@@ -40,7 +42,7 @@ inquirer.prompt([
         message: "What Employee would you like to add?"
     },
     {
-        type: "selectLine",
+        type: "list",
         message: "Would you like to view Departments, Roles or Employees?",
         name: "view",
         choices: [
@@ -65,7 +67,7 @@ inquirer.prompt([
         message: "What Employee would you like to view?"
     },
     {
-        type: "selectLine",
+        type: "list",
         message: "Would you like to update a Department, Role or Employee?",
         name: "update",
         choices: [
