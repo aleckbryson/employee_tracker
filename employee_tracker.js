@@ -2,7 +2,7 @@ var inquirer = require ("inquirer");
 var mysql = require("mysql");
 var fs = require("fs");
 
-
+//Questions added for to ask user whether they want to add, view, or update the department, role, or employee section
 inquirer.prompt([
     {
         type: "selectLine",
@@ -50,6 +50,21 @@ inquirer.prompt([
         ]
     },
     {
+        type: "input",
+        name: "viewDepartment",
+        message: "What Department would you like to view?"
+    },
+    {
+        type: "input",
+        name: "viewRole",
+        message: "What Role would you like to view?"
+    },
+    {
+        type: "input",
+        name: "viewEmployee",
+        message: "What Employee would you like to view?"
+    },
+    {
         type: "selectLine",
         message: "Would you like to update a Department, Role or Employee?",
         name: "update",
@@ -58,5 +73,20 @@ inquirer.prompt([
             "Role",
             "Employee"
         ]
+    },
+    {
+        type: "input",
+        name: "updateDepartment",
+        message: "What Department would you like to update?"
+    },
+    {
+        type: "input",
+        name: "updateRole",
+        message: "What Role would you like to update?"
+    },
+    {
+        type: "input",
+        name: "updateEmployee",
+        message: "What Employee would you like to update?"
     }
 ]).then(answers => {});
