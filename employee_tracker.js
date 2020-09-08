@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
 
     // Your password
     password: "rootroot",
-    database: "employee_trackerDB"
+    database: "trackerDB"
 });
 
 //Questions added for to ask user whether they want to add, view, or update the department, role, or employee section
@@ -26,7 +26,7 @@ inquirer.prompt([
         choices: [
             "Add Departments, Roles, Employees",
             "View Departments, Roles, Employees",
-            "Update Employee Roles"
+            "Update Departments, Roles, Employees"
         ]
     },
     {
