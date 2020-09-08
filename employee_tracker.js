@@ -106,9 +106,10 @@ inquirer.prompt([
     }
 ]).then(answers => {
 
+    //switch statements added to call function for user selection on whether to add, view or update
     switch (answers.action) {
         case "Add Department":
-            return;
+            return addDepartment();
         case "Add Role":
             return;
         case "Add Employee":
@@ -126,92 +127,85 @@ inquirer.prompt([
         case "Update Employee":
             return;
     }
-    
+
 });
-        
 
+connection.connect(function (err) {
+    if (err) throw err;
+    console.log("connected as id " + connection.threadId);
+    viewDepartment();
+});
 
-// connection.connect(function (err) {
-//             if (err) throw err;
-//             console.log("connected as id " + connection.threadId);
-//             afterConnection();
-//         });
-    
-//         function afterConnection() {
-//             connection.query("SELECT * FROM department", function (err, res) {
-//                 if (err) throw err;
-//                 console.table(res);
-//                 connection.end();
-//             });
-//         }
-    
-//         function createProduct() {
-//             console.log("Inserting a new product...\n");
-//             var query = connection.query(
-//                 "INSERT INTO products SET ?",
-//                 {
-//                     flavor: "Rocky Road",
-//                     price: 3.0,
-//                     quantity: 50
-//                 },
-//                 function (err, res) {
-//                     if (err) throw err;
-//                     console.log(res.affectedRows + " product inserted!\n");
-//                     // Call updateProduct AFTER the INSERT completes
-//                     updateProduct();
-//                 }
-//             );
-    
-//             // logs the actual query being run
-//             console.log(query.sql);
-//         }
-    
-//         function updateProduct() {
-//             console.log("Updating all Rocky Road quantities...\n");
-//             var query = connection.query(
-//                 "UPDATE products SET ? WHERE ?",
-//                 [
-//                     {
-//                         quantity: 100
-//                     },
-//                     {
-//                         flavor: "Rocky Road"
-//                     }
-//                 ],
-//                 function (err, res) {
-//                     if (err) throw err;
-//                     console.log(res.affectedRows + " products updated!\n");
-//                     // Call deleteProduct AFTER the UPDATE completes
-//                     deleteProduct();
-//                 }
-//             );
-    
-//             // logs the actual query being run
-//             console.log(query.sql);
-//         }
-    
-//         function deleteProduct() {
-//             console.log("Deleting all strawberry icecream...\n");
-//             connection.query(
-//                 "DELETE FROM products WHERE ?",
-//                 {
-//                     flavor: "strawberry"
-//                 },
-//                 function (err, res) {
-//                     if (err) throw err;
-//                     console.log(res.affectedRows + " products deleted!\n");
-//                     // Call readProducts AFTER the DELETE completes
-//                     readProducts();
-//                 }
-//             );
-//         }
-    
-//         function readProducts() {
-//             console.log("Selecting all products...\n");
-//             connection.query("SELECT * FROM products", function (err, res) {
-//                 if (err) throw err;
-//                 // Log all results of the SELECT statement
-//                 console.log(res);
-//                 connection.end();
-//             });
-//         }
+function viewDepartment() {
+    connection.query("SELECT * FROM department", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        connection.end();
+    });
+}
+
+function addDepartment() {
+    console.log("Inserting a new Department...\n");
+    var query = connection.query(
+        "INSERT INTO department SET ?",
+        {
+            name: `${name}`
+        },
+        function (err, res) {
+            if (err) throw err;
+            console.log(res.affectedRows + " department inserted!\n");
+            // Call updateDepartment AFTER the INSERT completes
+            updateDepartment();
+        }
+    );
+
+    // logs the actual query being run
+    console.log(query.sql);
+}
+
+function updateDepartment() {
+    console.log("Updating all Departments...\n");
+    var query = connection.query(
+        "UPDATE department SET ? WHERE ?",
+        [
+            {
+                name: `${name}`
+            }
+        ],
+        function (err, res) {
+            if (err) throw err;
+            console.log(res.affectedRows + " Department updated!\n");
+            // Call deleteProduct AFTER the UPDATE completes
+            deleteDepartment();
+        }
+    );
+
+    // logs the actual query being run
+    console.log(query.sql);
+}
+
+function deleteDepartment() {
+    console.log("Deleting selected Department...\n");
+    connection.query(
+        "DELETE FROM department WHERE ?",
+        {
+            name: `${name}`
+        },
+        function (err, res) {
+            if (err) throw err;
+            console.log(res.affectedRows + " department deleted!\n");
+            // Call readDepartment AFTER the DELETE completes
+            readDepartments();
+        }
+    );
+}
+
+function readDepartments() {
+    console.log("Selecting all Departments...\n");
+    connection.query("SELECT * FROM department", function (err, res) {
+        if (err) throw err;
+        // Log all results of the SELECT statement
+        console.log(res);
+        connection.end();
+    });
+}
