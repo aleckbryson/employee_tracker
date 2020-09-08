@@ -111,9 +111,9 @@ inquirer.prompt([
         case "Add Department":
             return addDepartment();
         case "Add Role":
-            return;
+            return addRole();
         case "Add Employee":
-            return;
+            return addEmployee();
         case "View Department":
             return viewDepartment();
         case "View Role":
@@ -123,9 +123,9 @@ inquirer.prompt([
         case "Update Department":
             return updateDepartment();
         case "Update Role":
-            return;
+            return updateRole();
         case "Update Employee":
-            return;
+            return updateEmployee();
     }
 
 });
@@ -185,7 +185,8 @@ function addRole() {
     var query = connection.query(
         "INSERT INTO role SET ?",
         {
-            name: `${name}`
+            title: `${name}`,
+            salary: `${salary}`
         },
         function (err, res) {
             if (err) throw err;
@@ -204,7 +205,9 @@ function addEmployee() {
     var query = connection.query(
         "INSERT INTO employee SET ?",
         {
-            name: `${name}`
+            title: `${name}`,
+            first_name: `${first_name}`,
+            last_name: `${first_name}`
         },
         function (err, res) {
             if (err) throw err;
@@ -246,7 +249,8 @@ function updateRole() {
         "UPDATE role SET ? WHERE ?",
         [
             {
-                name: `${name}`
+                title: `${name}`,
+                salary: `${salary}`
             }
         ],
         function (err, res) {
@@ -267,7 +271,9 @@ function updateEmployee() {
         "UPDATE employee SET ? WHERE ?",
         [
             {
-                name: `${name}`
+                title: `${name}`,
+                first_name: `${first_name}`,
+                last_name: `${first_name}`
             }
         ],
         function (err, res) {
@@ -303,7 +309,8 @@ function deleteRole() {
     connection.query(
         "DELETE FROM role WHERE ?",
         {
-            name: `${name}`
+            title: `${name}`,
+            salary: `${salary}`
         },
         function (err, res) {
             if (err) throw err;
@@ -319,7 +326,9 @@ function deleteEmployee() {
     connection.query(
         "DELETE FROM employee WHERE ?",
         {
-            name: `${name}`
+            title: `${name}`,
+            first_name: `${first_name}`,
+            last_name: `${first_name}`
         },
         function (err, res) {
             if (err) throw err;
