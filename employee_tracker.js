@@ -28,113 +28,113 @@ inquirer.prompt([
             "View Departments", "View Roles", "View Employees",
             "Update Department", " Update Role", "Update Employee"
         ]
+    },
+    {
+        type: "list",
+        message: "Would you like to add a Department, Role, or Employee?",
+        name: "add",
+        choices: [
+            "Department",
+            "Role",
+            "Employee"
+        ]
+    },
+    {
+        type: "input",
+        name: "addDepartment",
+        message: "What Department would you like to add?"
+    },
+    {
+        type: "input",
+        name: "addRole",
+        message: "What Role would you like to add?"
+    },
+    {
+        type: "input",
+        name: "addEmployee",
+        message: "What Employee would you like to add?"
+    },
+    {
+        type: "list",
+        message: "Would you like to view Departments, Roles or Employees?",
+        name: "view",
+        choices: [
+            "Departments",
+            "Roles",
+            "Employees"
+        ]
+    },
+    {
+        type: "input",
+        name: "viewDepartment",
+        message: "What Department would you like to view?"
+    },
+    {
+        type: "input",
+        name: "viewRole",
+        message: "What Role would you like to view?"
+    },
+    {
+        type: "input",
+        name: "viewEmployee",
+        message: "What Employee would you like to view?"
+    },
+    {
+        type: "list",
+        message: "Would you like to update a Department, Role or Employee?",
+        name: "update",
+        choices: [
+            "Department",
+            "Role",
+            "Employee"
+        ]
+    },
+    {
+        type: "input",
+        name: "updateDepartment",
+        message: "What Department would you like to update?"
+    },
+    {
+        type: "input",
+        name: "updateRole",
+        message: "What Role would you like to update?"
+    },
+    {
+        type: "input",
+        name: "updateEmployee",
+        message: "What Employee would you like to update?"
     }
-    // {
-    //     type: "list",
-    //     message: "Would you like to add a Department, Role, or Employee?",
-    //     name: "add",
-    //     choices: [
-    //         "Department",
-    //         "Role",
-    //         "Employee"
-    //     ]
-    // },
-    // {
-    //     type: "input",
-    //     name: "addDepartment",
-    //     message: "What Department would you like to add?"
-    // },
-    // {
-    //     type: "input",
-    //     name: "addRole",
-    //     message: "What Role would you like to add?"
-    // },
-    // {
-    //     type: "input",
-    //     name: "addEmployee",
-    //     message: "What Employee would you like to add?"
-    // },
-    // {
-    //     type: "list",
-    //     message: "Would you like to view Departments, Roles or Employees?",
-    //     name: "view",
-    //     choices: [
-    //         "Departments",
-    //         "Roles",
-    //         "Employees"
-    //     ]
-    // },
-    // {
-    //     type: "input",
-    //     name: "viewDepartment",
-    //     message: "What Department would you like to view?"
-    // },
-    // {
-    //     type: "input",
-    //     name: "viewRole",
-    //     message: "What Role would you like to view?"
-    // },
-    // {
-    //     type: "input",
-    //     name: "viewEmployee",
-    //     message: "What Employee would you like to view?"
-    // },
-    // {
-    //     type: "list",
-    //     message: "Would you like to update a Department, Role or Employee?",
-    //     name: "update",
-    //     choices: [
-    //         "Department",
-    //         "Role",
-    //         "Employee"
-    //     ]
-    // },
-    // {
-    //     type: "input",
-    //     name: "updateDepartment",
-    //     message: "What Department would you like to update?"
-    // },
-    // {
-    //     type: "input",
-    //     name: "updateRole",
-    //     message: "What Role would you like to update?"
-    // },
-    // {
-    //     type: "input",
-    //     name: "updateEmployee",
-    //     message: "What Employee would you like to update?"
-    // }
 ]).then(answers => {
 
-    //switch statements added to call function for user selection on whether to add, view or update
-    switch (answers.action) {
-        case "Add Department":
-            return addDepartment();
-        case "Add Role":
-            return addRole();
-        case "Add Employee":
-            return addEmployee();
-        case "View Departments":
-            return viewDepartment();
-        case "View Roles":
-            return viewRole();
-        case "View Employees":
-            return viewEmployee();
-        case "Update Department":
-            return updateDepartment();
-        case "Update Role":
-            return updateRole();
-        case "Update Employee":
-            return updateEmployee();
-    }
+    // //switch statements added to call function for user selection on whether to add, view or update
+    // switch (answers.action) {
+    //     case "Add Department":
+    //         return addDepartment();
+    //     case "Add Role":
+    //         return addRole();
+    //     case "Add Employee":
+    //         return addEmployee();
+    //     case "View Departments":
+    //         return viewDepartment();
+    //     case "View Roles":
+    //         return viewRole();
+    //     case "View Employees":
+    //         return viewEmployee();
+    //     case "Update Department":
+    //         return updateDepartment();
+    //     case "Update Role":
+    //         return updateRole();
+    //     case "Update Employee":
+    //         return updateEmployee();
+    // }
 
 });
 
-connection.connect(function (err) {
-    if (err) throw err;
-    console.log("connected as id " + connection.threadId);
-    viewDepartment();
-});
+// connection.connect(function (err) {
+//     if (err) throw err;
+//     console.log("connected as id " + connection.threadId);
+//     // viewDepartment();
+// });
 
 function viewDepartment() {
     connection.query("SELECT * FROM department", function (err, res) {
