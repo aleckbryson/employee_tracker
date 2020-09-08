@@ -115,13 +115,13 @@ inquirer.prompt([
         case "Add Employee":
             return;
         case "View Department":
-            return;
+            return viewDepartment();
         case "View Role":
-            return;
+            return viewRole();
         case "View Employee":
-            return;
+            return viewEmployee();
         case "Update Department":
-            return;
+            return updateDepartment();
         case "Update Role":
             return;
         case "Update Employee":
@@ -144,6 +144,23 @@ function viewDepartment() {
     });
 }
 
+function viewRole() {
+    connection.query("SELECT * FROM role", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        connection.end();
+    });
+}
+
+function viewEmployee() {
+    connection.query("SELECT * FROM role", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        connection.end();
+    });
+
+}
+
 function addDepartment() {
     console.log("Inserting a new Department...\n");
     var query = connection.query(
@@ -163,6 +180,45 @@ function addDepartment() {
     console.log(query.sql);
 }
 
+function addRole() {
+    console.log("Inserting a new Role...\n");
+    var query = connection.query(
+        "INSERT INTO role SET ?",
+        {
+            name: `${name}`
+        },
+        function (err, res) {
+            if (err) throw err;
+            console.log(res.affectedRows + " role inserted!\n");
+            // Call updateRole AFTER the INSERT completes
+            updateRole();
+        }
+    );
+
+    // logs the actual query being run
+    console.log(query.sql);
+}
+
+function addEmployee() {
+    console.log("Inserting a new Employee...\n");
+    var query = connection.query(
+        "INSERT INTO employee SET ?",
+        {
+            name: `${name}`
+        },
+        function (err, res) {
+            if (err) throw err;
+            console.log(res.affectedRows + " employee inserted!\n");
+            // Call updateEmployee AFTER the INSERT completes
+            updateEmployee();
+        }
+    );
+
+    // logs the actual query being run
+    console.log(query.sql);
+}
+
+
 function updateDepartment() {
     console.log("Updating all Departments...\n");
     var query = connection.query(
@@ -175,8 +231,50 @@ function updateDepartment() {
         function (err, res) {
             if (err) throw err;
             console.log(res.affectedRows + " Department updated!\n");
-            // Call deleteProduct AFTER the UPDATE completes
+            // Call deleteDepartment AFTER the UPDATE completes
             deleteDepartment();
+        }
+    );
+
+    // logs the actual query being run
+    console.log(query.sql);
+}
+
+function updateRole() {
+    console.log("Updating all Roles...\n");
+    var query = connection.query(
+        "UPDATE role SET ? WHERE ?",
+        [
+            {
+                name: `${name}`
+            }
+        ],
+        function (err, res) {
+            if (err) throw err;
+            console.log(res.affectedRows + " role updated!\n");
+            // Call deleteRole AFTER the UPDATE completes
+            deleteRole();
+        }
+    );
+
+    // logs the actual query being run
+    console.log(query.sql);
+}
+
+function updateEmployee() {
+    console.log("Updating all Employees...\n");
+    var query = connection.query(
+        "UPDATE employee SET ? WHERE ?",
+        [
+            {
+                name: `${name}`
+            }
+        ],
+        function (err, res) {
+            if (err) throw err;
+            console.log(res.affectedRows + " employee updated!\n");
+            // Call deleteRole AFTER the UPDATE completes
+            deleteEmployee();
         }
     );
 
@@ -194,15 +292,67 @@ function deleteDepartment() {
         function (err, res) {
             if (err) throw err;
             console.log(res.affectedRows + " department deleted!\n");
-            // Call readDepartment AFTER the DELETE completes
-            readDepartments();
+            // Call viewDepartment AFTER the DELETE completes
+            viewDepartments();
         }
     );
 }
 
-function readDepartments() {
+function deleteRole() {
+    console.log("Deleting selected Role...\n");
+    connection.query(
+        "DELETE FROM role WHERE ?",
+        {
+            name: `${name}`
+        },
+        function (err, res) {
+            if (err) throw err;
+            console.log(res.affectedRows + " role deleted!\n");
+            // Call viewRoles AFTER the DELETE completes
+            viewRoles();
+        }
+    );
+}
+
+function deleteEmployee() {
+    console.log("Deleting selected Role...\n");
+    connection.query(
+        "DELETE FROM employee WHERE ?",
+        {
+            name: `${name}`
+        },
+        function (err, res) {
+            if (err) throw err;
+            console.log(res.affectedRows + " employee deleted!\n");
+            // Call viewEmployees AFTER the DELETE completes
+            viewEmployees();
+        }
+    );
+}
+
+function viewDepartments() {
     console.log("Selecting all Departments...\n");
     connection.query("SELECT * FROM department", function (err, res) {
+        if (err) throw err;
+        // Log all results of the SELECT statement
+        console.log(res);
+        connection.end();
+    });
+}
+
+function viewRoles() {
+    console.log("Selecting all Roles...\n");
+    connection.query("SELECT * FROM role", function (err, res) {
+        if (err) throw err;
+        // Log all results of the SELECT statement
+        console.log(res);
+        connection.end();
+    });
+}
+
+function viewEmployees() {
+    console.log("Selecting all Employees...\n");
+    connection.query("SELECT * FROM employee", function (err, res) {
         if (err) throw err;
         // Log all results of the SELECT statement
         console.log(res);
