@@ -10,4 +10,4 @@ In order to run the application, please run npm i to install the dependencies.
 
 This application can be used to manage departments, roles, and employees
 
-![employee_tracker](tracker.gif)
+![tracker](assets/tracker.gif)
